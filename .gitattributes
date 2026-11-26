@@ -1,0 +1,15 @@
+* text=auto
+
+# Audio assets are binary — never diff or merge them as text
+*.wav binary
+*.mp3 binary
+*.ogg binary
+*.m4a binary
+
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
