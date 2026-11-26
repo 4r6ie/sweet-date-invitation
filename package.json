@@ -1,17 +1,35 @@
 {
-  "name": "date",
+  "name": "sweet-date-invitation",
   "version": "1.0.0",
-  "description": "Will You Say Yes? - A romantic interactive date invitation",
+  "description": "Will You Say Yes? — a romantic, interactive date-invitation website built with React, TypeScript and Vite.",
   "type": "module",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "tsc --noEmit"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "react",
+    "typescript",
+    "vite",
+    "date-invitation",
+    "romantic",
+    "interactive",
+    "valentine",
+    "confetti"
+  ],
+  "author": "Argie Cabudbud",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4r6ie/sweet-date-invitation.git"
+  },
+  "homepage": "https://4r6ie.github.io/sweet-date-invitation/",
+  "bugs": {
+    "url": "https://github.com/4r6ie/sweet-date-invitation/issues"
+  },
   "dependencies": {
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
