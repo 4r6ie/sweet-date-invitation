@@ -92,10 +92,14 @@ sweet-date-invitation/
 │  ├─ sweet-love-theme.wav     # Generated original soundtrack (26.7s loop)
 │  └─ README.md                # How the track is made
 ├─ scripts/generate-theme.mjs  # WAV synthesizer (piano, pads, bells, reverb)
-├─ .github/workflows/deploy.yml# GitHub Pages deployment
+├─ .github/workflows/
+│  ├─ deploy.yml               # GitHub Pages deployment
+│  └─ secret-scan.yml          # gitleaks secret scanning
+├─ .gitleaks.toml              # Secret-scan rules and allowlist
+├─ SECURITY.md                 # Security model and reporting policy
 ├─ netlify.toml                # Netlify build + SPA redirect
 ├─ vercel.json                 # Vercel rewrites + cache headers
-├─ vite.config.ts              # Relative base, so sub-path hosting works
+└─ vite.config.ts              # Relative base, so sub-path hosting works
 ```
 
 ## 🚀 Quick start
@@ -242,6 +246,16 @@ npm run build
 - The "NO" button is intentionally unreachable, but the **YES** path is fully keyboard-accessible.
 - No analytics, cookies, accounts or server calls. The only outbound link is the optional WhatsApp
   deep link, opened by the user.
+
+## 🔒 Security
+
+This project is a static front-end: no backend, database, authentication or API keys, so there are
+no server-side secrets to protect. [SECURITY.md](./SECURITY.md) documents the threat model, the
+intentional public exposure of the WhatsApp number, how to purge it from git history, and the
+hardening steps to follow if a backend is added later.
+
+Every push and pull request runs a [gitleaks](https://github.com/gitleaks/gitleaks) secret scan
+(`.github/workflows/secret-scan.yml`).
 
 ## 🧭 Browser support
 
