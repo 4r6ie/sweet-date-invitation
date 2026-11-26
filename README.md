@@ -92,9 +92,12 @@ sweet-date-invitation/
 │  ├─ sweet-love-theme.wav     # Generated original soundtrack (26.7s loop)
 │  └─ README.md                # How the track is made
 ├─ scripts/generate-theme.mjs  # WAV synthesizer (piano, pads, bells, reverb)
-├─ .github/workflows/
-│  ├─ deploy.yml               # GitHub Pages deployment
-│  └─ secret-scan.yml          # gitleaks secret scanning
+├─ .github/
+│  ├─ workflows/
+│  │  ├─ deploy.yml            # GitHub Pages deployment
+│  │  ├─ secret-scan.yml       # gitleaks secret scanning
+│  │  └─ dependency-audit.yml  # npm audit on a weekly schedule
+│  └─ dependabot.yml           # Weekly dependency update PRs
 ├─ .gitleaks.toml              # Secret-scan rules and allowlist
 ├─ SECURITY.md                 # Security model and reporting policy
 ├─ netlify.toml                # Netlify build + SPA redirect
@@ -255,7 +258,9 @@ intentional public exposure of the WhatsApp number, how to purge it from git his
 hardening steps to follow if a backend is added later.
 
 Every push and pull request runs a [gitleaks](https://github.com/gitleaks/gitleaks) secret scan
-(`.github/workflows/secret-scan.yml`).
+(`.github/workflows/secret-scan.yml`). `netlify.toml` and `vercel.json` send a strict
+Content-Security-Policy, HSTS and the usual hardening headers, while `npm audit` runs weekly and
+Dependabot keeps npm packages and GitHub Actions current.
 
 ## 🧭 Browser support
 

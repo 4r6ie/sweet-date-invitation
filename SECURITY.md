@@ -90,6 +90,28 @@ git push --force --all
 Force-pushing rewrites every commit hash. GitHub may still serve old objects by SHA for a period, so
 a complete purge requires deleting and recreating the repository.
 
+## Static-site checklist
+
+| Control | Status | Notes |
+|---|---|---|
+| Secure session cookies | **N/A** | The app sets no cookies and has no session. |
+| Hash passwords | **N/A** | No passwords, accounts or login exist. |
+| Bot protection | **N/A** | No forms, login or API to abuse. If a form is added later, put rate limiting at the host/CDN. |
+| Parameterize queries | **N/A** | No database, ORM or queries. |
+| Validate all inputs | **Done** | The only free-text input (custom time) is trimmed, capped at 60 characters, stripped of control characters, and required before continuing. |
+| Trim API responses | **N/A** | No API. The WhatsApp message is built from trimmed values. |
+| Escape user content | **Done** | React escapes every rendered value; the WhatsApp URL is built with `encodeURIComponent`. |
+| Security headers | **Done** | CSP, HSTS, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` and COOP are set in `netlify.toml` and `vercel.json`. |
+| Force HTTPS | **Done** | HSTS is sent by both configs; Netlify and Vercel serve HTTPS by default; GitHub Pages offers an "Enforce HTTPS" toggle. |
+| Scan dependencies | **Done** | `npm audit --omit=dev --audit-level=high` runs in CI, and Dependabot opens weekly PRs for npm packages and GitHub Actions. |
+
+The CSP keeps scripts strict (`script-src 'self'`) and allows `'unsafe-inline'` only for styles, which
+the UI needs because components use React inline styles.
+
+**GitHub Pages limitation:** GitHub Pages cannot send custom response headers, so the full header set
+applies only to the Netlify and Vercel configurations (or a proxy/CDN such as Cloudflare in front of
+Pages). GitHub still enforces HTTPS for Pages when "Enforce HTTPS" is enabled.
+
 ## If you add a backend
 
 The eight-point hardening checklist becomes relevant only when this project gains a server or

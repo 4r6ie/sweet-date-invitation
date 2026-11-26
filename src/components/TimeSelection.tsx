@@ -182,7 +182,10 @@ const TimeSelection: React.FC<TimeSelectionProps> = ({ onContinue }) => {
               id="custom-time-input"
               type="text"
               value={customTime}
-              onChange={e => setCustomTime(e.target.value)}
+              maxLength={60}
+              onChange={e =>
+                setCustomTime(e.target.value.replace(/[\u0000-\u001F\u007F]/g, ''))
+              }
               placeholder="e.g. 6:30 PM, Midnight Stroll, Sunrise..."
               style={{
                 width: '100%',
