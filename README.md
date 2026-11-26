@@ -77,7 +77,6 @@ sweet-date-invitation/
 ├─ src/
 │  ├─ main.tsx                 # React root
 │  ├─ App.tsx                  # Screen state machine (greeting → celebration)
-│  ├─ config.ts                # WhatsApp number from env + shared copy
 │  ├─ style.css                # Palette, layout, keyframes, reduced-motion
 │  └─ components/
 │     ├─ Greeting.tsx          # Opening screen (auto-advances after 4s)
@@ -97,7 +96,6 @@ sweet-date-invitation/
 ├─ netlify.toml                # Netlify build + SPA redirect
 ├─ vercel.json                 # Vercel rewrites + cache headers
 ├─ vite.config.ts              # Relative base, so sub-path hosting works
-└─ .env.example                # Copy to .env.local for your WhatsApp number
 ```
 
 ## 🚀 Quick start
@@ -120,27 +118,6 @@ npm run preview
 # 5. Type-check only
 npm run lint
 ```
-
-### Environment variables
-
-The WhatsApp confirmation is optional. Copy the example file and add your number:
-
-```bash
-cp .env.example .env.local
-```
-
-```dotenv
-# Digits only, with country code, no "+" or spaces.
-VITE_WHATSAPP_NUMBER=639171234567
-```
-
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `VITE_WHATSAPP_NUMBER` | No | Recipient of the "Confirm Our Date" message. When unset, the button is hidden. `.env.local` is git-ignored, so the number never enters the repository. |
-
-> **Note:** Vite inlines `VITE_*` variables into the client bundle at build time. This is a phone
-> number for a WhatsApp deep link, not a secret credential — but keeping it out of the public repo
-> still avoids publishing personal data.
 
 ## 🎨 Customization
 
@@ -178,9 +155,14 @@ const TIME_OPTIONS: TimeOption[] = [
 
 ### WhatsApp message & recipient
 
-- Recipient → `VITE_WHATSAPP_NUMBER` in `.env.local` (see above)
-- Message template → `whatsappMessage` in `src/components/Celebration.tsx`
-- Button copy → `Confirm Our Date ❤️` in the same file
+All three live in `src/components/Celebration.tsx`:
+
+- Recipient → `WHATSAPP_RECIPIENT` (digits only, including the country code)
+- Message template → `whatsappMessage`
+- Button copy → `Confirm Our Date ❤️`
+
+> **Heads-up:** the recipient is a plain constant, so the number is visible in the source. If you
+> publish this repository, update `WHATSAPP_RECIPIENT` to your own number first.
 
 ### Celebration copy
 

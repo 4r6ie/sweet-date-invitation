@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
 import ReplayButton from './ReplayButton'
-import { WHATSAPP_NUMBER } from '../config'
 
 interface CelebrationProps {
   onReplay: () => void
@@ -21,6 +20,8 @@ interface ConfettiParticle {
   shape: 'circle' | 'rect' | 'heart'
 }
 
+const WHATSAPP_RECIPIENT = '639928636148'
+
 const Celebration: React.FC<CelebrationProps> = ({
   onReplay,
   replayCount,
@@ -31,13 +32,9 @@ const Celebration: React.FC<CelebrationProps> = ({
   const [confettiActive, setConfettiActive] = useState(false)
   const [showMessage, setShowMessage] = useState(false)
 
-  // Construct the official WhatsApp click-to-chat URL.
-  // The recipient number lives in VITE_WHATSAPP_NUMBER (.env.local) so it never
-  // has to be committed. When it is not configured, the button is hidden.
+  // Construct official WhatsApp click-to-chat URL
   const whatsappMessage = `Hi love! ❤️ I'm confirming our date!\n\n⏰ Preferred Time: ${selectedTime}\n🍔 Food Choice: ${selectedFood}\n\nSee you soon! I love you! 🥰❤️`
-  const whatsappUrl = WHATSAPP_NUMBER
-    ? `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`
-    : null
+  const whatsappUrl = `https://wa.me/${WHATSAPP_RECIPIENT}?text=${encodeURIComponent(whatsappMessage)}`
 
   // Trigger celebration effects on mount
   useEffect(() => {
@@ -330,51 +327,49 @@ const Celebration: React.FC<CelebrationProps> = ({
             </div>
           </div>
 
-          {/* WhatsApp Date Confirmation Action (hidden when no number is configured) */}
-          {whatsappUrl && (
-            <div style={{ margin: '1.5rem auto 1rem', maxWidth: '400px' }}>
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="button whatsapp-btn"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.75rem',
-                  width: '100%',
-                  padding: '1.1rem 2rem',
-                  borderRadius: '16px',
-                  background: 'linear-gradient(135deg, #25D366, #128C7E)',
-                  color: '#ffffff',
-                  fontSize: '1.2rem',
-                  fontWeight: '700',
-                  textDecoration: 'none',
-                  boxShadow: '0 8px 25px rgba(37, 211, 102, 0.4)',
-                  transition: 'all 0.25s ease',
-                  cursor: 'pointer',
-                  boxSizing: 'border-box'
-                }}
-              >
-                {/* WhatsApp SVG Icon */}
-                <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
-                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-10.416c-4.298 0-7.79 3.493-7.79 7.79 0 1.373.357 2.664.98 3.787l-1.042 3.809 3.905-1.024c1.085.592 2.327.928 3.647.928 4.298 0 7.79-3.493 7.79-7.79s-3.492-7.79-7.79-7.79zm0 17.58c-1.233 0-2.392-.352-3.376-.96l-.242-.148-2.51.658.67-2.446-.162-.258c-.675-1.074-1.032-2.327-1.032-3.636 0-3.666 2.984-6.65 6.652-6.65 3.667 0 6.65 2.984 6.65 6.65 0 3.668-2.983 6.652-6.65 6.652z" />
-                </svg>
-                <span>Confirm Our Date ❤️</span>
-              </a>
-              <div
-                style={{
-                  fontSize: '0.85rem',
-                  color: '#666',
-                  marginTop: '0.6rem',
-                  lineHeight: 1.4
-                }}
-              >
-                💬 Opens WhatsApp with your selections ready — tap <strong>Send</strong> to confirm!
-              </div>
+          {/* WhatsApp Date Confirmation Action */}
+          <div style={{ margin: '1.5rem auto 1rem', maxWidth: '400px' }}>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="button whatsapp-btn"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.75rem',
+                width: '100%',
+                padding: '1.1rem 2rem',
+                borderRadius: '16px',
+                background: 'linear-gradient(135deg, #25D366, #128C7E)',
+                color: '#ffffff',
+                fontSize: '1.2rem',
+                fontWeight: '700',
+                textDecoration: 'none',
+                boxShadow: '0 8px 25px rgba(37, 211, 102, 0.4)',
+                transition: 'all 0.25s ease',
+                cursor: 'pointer',
+                boxSizing: 'border-box'
+              }}
+            >
+              {/* WhatsApp SVG Icon */}
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-10.416c-4.298 0-7.79 3.493-7.79 7.79 0 1.373.357 2.664.98 3.787l-1.042 3.809 3.905-1.024c1.085.592 2.327.928 3.647.928 4.298 0 7.79-3.493 7.79-7.79s-3.492-7.79-7.79-7.79zm0 17.58c-1.233 0-2.392-.352-3.376-.96l-.242-.148-2.51.658.67-2.446-.162-.258c-.675-1.074-1.032-2.327-1.032-3.636 0-3.666 2.984-6.65 6.652-6.65 3.667 0 6.65 2.984 6.65 6.65 0 3.668-2.983 6.652-6.65 6.652z" />
+              </svg>
+              <span>Confirm Our Date ❤️</span>
+            </a>
+            <div
+              style={{
+                fontSize: '0.85rem',
+                color: '#666',
+                marginTop: '0.6rem',
+                lineHeight: 1.4
+              }}
+            >
+              💬 Opens WhatsApp with your selections ready — tap <strong>Send</strong> to confirm!
             </div>
-          )}
+          </div>
 
           <ReplayButton onReplay={onReplay} />
         </div>
